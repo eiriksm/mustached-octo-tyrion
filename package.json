@@ -1,0 +1,31 @@
+{
+  "name": "mustached-octo-tyrion",
+  "version": "1.0.0",
+  "description": "mustached-octo-tyrion =====================",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eiriksm/mustached-octo-tyrion.git"
+  },
+  "author": "Eirik S. Morland <eirik@morland.no>",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/eiriksm/mustached-octo-tyrion/issues"
+  },
+  "homepage": "https://github.com/eiriksm/mustached-octo-tyrion",
+  "dependencies": {
+    "mkdirp": "^0.5.0",
+    "request": "^2.39.0",
+    "waitgroup": "^1.0.1",
+    "xml2js": "^0.4.4"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.1",
+    "istanbul": "^0.3.0",
+    "mocha": "^1.21.3",
+    "should": "^4.0.4"
+  }
+}
