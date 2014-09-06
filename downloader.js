@@ -3,6 +3,7 @@ var request = require('request');
 var parseString = require('xml2js').parseString;
 var mkdirp = require('mkdirp');
 var WaitGroup = require('waitgroup');
+var ProgressBar = require('progress');
 
 module.exports = function(opts) {
   var callback = opts.callback;
@@ -18,25 +19,25 @@ module.exports = function(opts) {
     // Convert away from ugly xml.
     parseString(b, function(er, res) {
       var wg = new WaitGroup();
+      var bar = new ProgressBar(':bar :percent :eta', { total: parseInt(end, 10) - parseInt(start, 10) });
       res.rss.channel[0].item.forEach(function(n, i) {
-        wg.add();
         // Find all mp3 files.
         if (i >= start && i < end) {
+          wg.add();
           var mp3 = n.guid[0];
           // Download the mp3.
           var stream = fs.createWriteStream('./mp3s/' + i + '.mp3');
           stream.on('finish', function() {
             wg.done();
+            bar.tick();
           });
           request(mp3).pipe(stream);
           return;
         }
-        wg.done();
       });
       wg.wait(function() {
         callback();
       });
     });
   });
-}
-
+};
