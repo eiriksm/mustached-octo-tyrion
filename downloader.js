@@ -4,7 +4,7 @@ var parseString = require('xml2js').parseString;
 var mkdirp = require('mkdirp');
 var WaitGroup = require('waitgroup');
 var ProgressBar = require('progress');
-
+var moment = require('moment');
 module.exports = function(opts) {
   var callback = opts.callback;
   if (!callback) {
@@ -26,7 +26,8 @@ module.exports = function(opts) {
           wg.add();
           var mp3 = n.guid[0];
           // Download the mp3.
-          var stream = fs.createWriteStream('./mp3s/' + i + '.mp3');
+          var filename = moment(new Date(n.pubDate[0])).format('YYYY-MM-DD') + '.mp3';
+          var stream = fs.createWriteStream('./mp3s/' + filename);
           stream.on('finish', function() {
             wg.done();
             bar.tick();

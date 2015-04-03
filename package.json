@@ -18,15 +18,16 @@
   "homepage": "https://github.com/eiriksm/mustached-octo-tyrion",
   "dependencies": {
     "mkdirp": "^0.5.0",
+    "moment": "^2.9.0",
     "progress": "^1.1.8",
-    "request": "^2.42.0",
+    "request": "^2.54.0",
     "waitgroup": "^1.0.1",
-    "xml2js": "^0.4.4"
+    "xml2js": "^0.4.6"
   },
   "devDependencies": {
-    "coveralls": "^2.11.1",
-    "istanbul": "^0.3.2",
-    "mocha": "^1.21.4",
-    "should": "^4.0.4"
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.13",
+    "mocha": "^2.2.1",
+    "should": "^5.2.0"
   }
 }
