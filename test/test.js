@@ -15,12 +15,16 @@ describe('All of the things', function() {
         res.end('good one');
         return;
       }
-      res.end('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss><channel><item><guid>http://localhost:1337/something</guid><pubDate>Thu, 02 Apr 2035 13:30:46 GMT</pubDate></item><item></item></channel></rss>');
+      if (req.url == '/not-something') {
+        res.end('bad one');
+        return;
+      }
+      res.end('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss><channel><item><guid>http://localhost:1337/something</guid><itunes:summary>Vant 17 mill, dro på jobb - Sharif - Afrikansk Arsenal-eier - Bollesveis - Koftepolitiet - Syrisk FrP-gråt</itunes:summary><pubDate>Thu, 02 Apr 2035 13:30:46 GMT</pubDate></item><item><guid>http://localhost:1337/not-something</guid><itunes:summary>Best of ...</itunes:summary><pubDate>Thu, 11 Apr 2035 13:30:46 GMT</pubDate></item><item><guid>http://localhost:1337/not-something</guid><itunes:summary>Destillert</itunes:summary><pubDate>Thu, 01 Apr 2035 13:30:46 GMT</pubDate></item><item></item></channel></rss>');
     }).listen(1337, '127.0.0.1');
     var opts = {
       start: 1,
-      end: 1,
-      url: 'http://localhost:1337',
+      end: 3,
+      url: 'http://localhost:1337'
     };
     // And just for coverage.
     t(opts);
@@ -30,8 +34,11 @@ describe('All of the things', function() {
       var f = fs.readFileSync(filename);
       f.toString().should.equal('good one');
       fs.unlinkSync(filename);
+      // Make sure we have not downloaded the "best of" episodes.
+      should.throws(fs.readFileSync.bind('fs', './mp3s/2035-04-01.mp3'), 'ENOENT');
+      should.throws(fs.readFileSync.bind('fs', './mp3s/2035-04-11.mp3'), 'ENOENT');
       done();
-    }
+    };
     t(opts);
   });
 });
