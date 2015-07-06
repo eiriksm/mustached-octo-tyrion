@@ -26,7 +26,6 @@ function logger() {
 }
 
 function checkSummary(item, callback) {
-  console.log(item)
   var summary = item['itunes:summary'][0];
   if (summary.indexOf('Best of') > -1 || summary.indexOf('Destillert') > -1) {
     logger('Skipping %s because it seems to be a summary episode', summary);
@@ -36,8 +35,6 @@ function checkSummary(item, callback) {
 }
 
 function download(item, isSummary, callback) {
-  var filename = moment(new Date(item.pubDate[0])).format('YYYY-MM-DD') + '.mp3';
-  console.log(filename)
   if (isSummary) {
     return callback();
   }
