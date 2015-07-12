@@ -1,3 +1,4 @@
+'use strict';
 var should = require('should');
 var t = require('../downloader');
 var fs = require('fs');
@@ -11,11 +12,11 @@ describe('All of the things', function() {
     var http = require('http');
     http.createServer(function (req, res) {
       res.writeHead(200, {'Content-Type': 'text/plain'});
-      if (req.url == '/something') {
+      if (req.url === '/something') {
         res.end('good one');
         return;
       }
-      if (req.url == '/not-something') {
+      if (req.url === '/not-something') {
         res.end('bad one');
         return;
       }

@@ -4,7 +4,7 @@
   "description": "mustached-octo-tyrion =====================",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "eslint . && mocha"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
+    "eslint": "^0.24.1",
     "istanbul": "^0.3.17",
     "mocha": "^2.2.5",
     "should": "^7.0.1"

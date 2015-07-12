@@ -7,20 +7,6 @@ var ProgressBar = require('progress');
 var moment = require('moment');
 var async = require('async');
 
-function createItemFuncs(arr, bar) {
-  return arr.map(function(n) {
-    return function(callback) {
-      async.waterfall([
-        checkSummary.bind(this, n),
-        download
-      ], function(err) {
-        bar.tick();
-        callback(err);
-      });
-    };
-  });
-}
-
 function logger() {
   console.log.apply(console, arguments);
 }
@@ -49,6 +35,21 @@ function download(item, isSummary, callback) {
   });
   request(mp3).pipe(stream);
 }
+
+function createItemFuncs(arr, bar) {
+  return arr.map(function(n) {
+    return function(callback) {
+      async.waterfall([
+        checkSummary.bind(this, n),
+        download
+      ], function(err) {
+        bar.tick();
+        callback(err);
+      });
+    };
+  });
+}
+
 
 module.exports = function(opts) {
   var callback = opts.callback;
